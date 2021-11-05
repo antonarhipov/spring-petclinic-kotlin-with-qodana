@@ -30,3 +30,34 @@ class PetClinicApplication
 fun main(args: Array<String>) {
     runApplication<PetClinicApplication>(*args)
 }
+
+fun processParameters1(args: Array<String>) {
+    println("Printing out parameters: ")
+    for ((i, arg) in args.withIndex()) {
+        when (i) {
+            in 0..5 -> println("$i) $arg")
+            in 5..10 -> println("$i: $arg")
+            in 10..15 -> println("$i> $arg")
+            in 15..20 -> println("$i~ $arg")
+            else -> println("==== $i ====")
+        }
+    }
+    println("Printing out parameters: ")
+    println("finished!")
+}
+
+fun processParameters2(args: Array<String>) {
+    println("Printing out parameters: ")
+    for ((i, arg) in args.withIndex()) {
+        when (i) {
+            in 0..5 -> println("$i) $arg")
+            in 5..10 -> println("$i: $arg")
+            in 10..15 -> println("$i> $arg")
+            in 15..20 -> println("$i~ $arg")
+            else -> println("==== $i ====")
+        }
+    }
+    println("Printing out parameters: ")
+    println("done!")
+}
+

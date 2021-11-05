@@ -9,12 +9,13 @@ version = "2.5.6"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 plugins {
-    val kotlinVersion = "1.4.10"
+    val kotlinVersion = "1.5.21"
     id("org.springframework.boot") version "2.5.6"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     id("com.google.cloud.tools.jib") version "3.1.4"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
+    id("io.gitlab.arturbosch.detekt").version("1.18.0")
 }
 
 val boostrapVersion = "3.3.6"
@@ -65,6 +66,31 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+}
+
+detekt {
+    buildUponDefaultConfig = true // preconfigure defaults
+    config = files("$projectDir/detekt.yml")
+
+    reports {
+//        sarif.enabled = true
+
+        sarif {
+            enabled = true
+            destination = file("build/reports/detekt/detekt.sarif")
+        }
+    }
+}
+
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    // Target version of the generated JVM bytecode. It is used for type resolution.
+    jvmTarget = "1.8"
+//    this.reports {
+//        sarif {
+//            required.set(true)
+//        }
+//    }
 }
 
 jib {
